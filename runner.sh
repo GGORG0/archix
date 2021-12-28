@@ -9,6 +9,5 @@ run() {
     echo "[*] Starting Archix..."
     chmod +x *.sh
     ./archix.sh
-    cd ..
 }
 run
