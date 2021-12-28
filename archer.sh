@@ -375,11 +375,16 @@ cp -r $PWD/user.sh /mnt/user.sh || error "An error occurred while copying the in
 echo -e "$GREEN $CHECKMARK Installation script copied.$NC"
 
 echo -e "$BLUE $BULLET Chrooting into the new system...$NC"
+echo "export EDTOR=$EDTOR" >> /mnt/envs
+echo "device=$device" >> /mnt/envs
+echo "firmware=$firmware" >> /mnt/envs
 arch-chroot /mnt /install.sh || error "An error occurred while chrooting into the new system."
 echo -e "$GREEN $CHECKMARK Chroot exited.$NC"
 
 echo -e "$BLUE $BULLET Deleting the installation script...$NC"
 rm /mnt/install.sh || error "An error occurred while deleting the installation script."
+rm /mnt/user.sh || error "An error occurred while deleting the installation script."
+rm /mnt/envs || error "An error occurred while deleting the installation script."
 echo -e "$GREEN $CHECKMARK Installation script deleted.$NC"
 
 echo -e "$BLUE $BULLET Unmounting the filesystems...$NC"
