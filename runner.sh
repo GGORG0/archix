@@ -1,6 +1,6 @@
 run() {
     echo "[*] Making sure Git is installed"
-    pacman -S --noconfirm --needed git
+    pacman -Sy --noconfirm --needed git
     echo "[*] Cloning the repository..."
     git clone https://github.com/GGORG0/archix.git
     cd archix
