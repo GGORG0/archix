@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ "ARCHER_DISABLE_COLORS" == "1" ]; then
+if [ "ARCHIX_DISABLE_COLORS" == "1" ]; then
     RED=""
     GREEN=""
     YELLOW=""
@@ -14,7 +14,7 @@ else
     NC='\033[0m'
 fi
 
-if [ "ARCHER_RICH_SYMBOLS" == "1" ]; then
+if [ "ARCHIX_RICH_SYMBOLS" == "1" ]; then
     CHECKMARK='[\xE2\x9C\x94]'
     CROSS='[\xE2\x9C\x98]'
     BULLET='[‣]'
@@ -33,7 +33,7 @@ error() {
 
 cd "$(dirname "$0")" || echo -e "Could not change directory to the script directory. Please download the script to a stable directory and try again."
 
-echo -e "Welcome to Archer, a simple bash script to install a new Arch Linux system."
+echo -e "Welcome to Archix, a simple bash script to install a new Arch Linux system."
 echo -e "Make sure to run this script as root in the ArchISO."
 echo -e
 
