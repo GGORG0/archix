@@ -1,16 +1,30 @@
 #!/bin/bash
 
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-BLUE='\033[0;34m'
-YELLOW='\033[1;33m'
-NC='\033[0m'
+if [ "ARCHIX_DISABLE_COLORS" == "1" ]; then
+    RED=""
+    GREEN=""
+    YELLOW=""
+    BLUE=""
+    NC-""
+else
+    RED='\033[0;31m'
+    GREEN='\033[0;32m'
+    BLUE='\033[1;34m'
+    YELLOW='\033[1;33m'
+    NC='\033[0m'
+fi
 
-CHECKMARK='\xE2\x9C\x94'
-CROSS='\xE2\x9C\x98'
-BULLET='‣'
-QUESTION='?'
-WARNING='!'
+if [ "ARCHIX_RICH_SYMBOLS" == "1" ]; then
+    CHECKMARK='[\xE2\x9C\x94]'
+    CROSS='[\xE2\x9C\x98]'
+    BULLET='[‣]'
+else
+    CHECKMARK='[√]'
+    CROSS='[X]'
+    BULLET='[>]'
+fi
+QUESTION='[?]'
+WARNING='[!]'
 
 error() {
     echo -e "$RED  $CROSS $1$NC"
