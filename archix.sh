@@ -362,7 +362,7 @@ fi
 
 echo -e "$BLUE $BULLET Installing the base system...$NC"
 echo -e "$BLUE $BULLET This may take a while...$NC"
-pacstrap /mnt base base-devel linux-firmware $kern git vim $ucode || error "An error occurred while installing the base system."
+pacstrap /mnt base base-devel linux-firmware $kern git vim nano $ucode || error "An error occurred while installing the base system."
 echo -e "$GREEN $CHECKMARK Base system installed.$NC"
 
 echo -e "$BLUE $BULLET Generating fstab...$NC"
