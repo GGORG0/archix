@@ -1,8 +1,8 @@
 #!/bin/bash
 
-echo -e "[*] Loading variables...$NC"
+echo -e "[*] Loading variables..."
 source /envs
-echo -e " [*] Variables loaded!$NC"
+echo -e " [*] Variables loaded!"
 
 if [ "ARCHIX_DISABLE_COLORS" == "1" ]; then
     RED=""
