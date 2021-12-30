@@ -230,7 +230,7 @@ echo "$username ALL=(ALL) ALL" >> /etc/sudoers
 echo -e "$GREEN   $CHECKMARK Sudo setup complete!$NC"
 echo -e "$GREEN  $CHECKMARK User created!$NC"
 
-echo -e "$BLUE $BULLET Getting mirrors... This will take a long time.$NC"
+echo -e "$BLUE $BULLET Getting mirrors... This will take a very long time.$NC"
 reflector -a 6 --sort rate --save /etc/pacman.d/mirrorlist --verbose
 echo -e "$GREEN  $CHECKMARK Mirrors updated!$NC"
 
