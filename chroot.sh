@@ -152,6 +152,7 @@ echo -e " $BULLET 1) NVIDIA"
 echo -e " $BULLET 2) AMD (Not tested)"
 echo -e " $BULLET 3) Intel (Integrated)"
 echo -e " $BULLET 4) Both (NVIDIA and Intel)"
+echo -e " $BULLET 5) None (eg. VM)"
 echo -e "$NC"
 read -p " Please enter your choice: " graphics_card
 
@@ -178,6 +179,8 @@ elif [ "$graphics_card" == "4" ]; then
     sed -i 's/^MODULES=()/MODULES=(nvidia i915)/' /etc/mkinitcpio.conf
     mkinitcpio -P
     echo -e "$GREEN  $CHECKMARK NVIDIA and Intel drivers installed! Optimus Manager switching will be installed later.$NC"
+elif [ "$graphics_card" == "5" ]; then
+    echo -e "$BLUE $BULLET Skipping graphics card setup...$NC"
 else
     error "Invalid choice!"
 fi
