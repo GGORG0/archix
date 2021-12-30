@@ -189,6 +189,7 @@ elif [ "$graphics_card" == "4" ]; then
     sed -i 's/^MODULES=()/MODULES=(nvidia i915)/' /etc/mkinitcpio.conf
     mkinitcpio -P
     echo -e "$GREEN  $CHECKMARK NVIDIA and Intel drivers installed! Optimus Manager switching will be installed later.$NC"
+    # TODO: Add Optimus Manager
 elif [ "$graphics_card" == "5" ]; then
     echo -e "$BLUE $BULLET Skipping graphics card setup...$NC"
 else
