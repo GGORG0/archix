@@ -158,7 +158,12 @@ read -p " Please enter your choice: " graphics_card
 
 if [ "$graphics_card" == "1" ]; then
     echo -e "$BLUE $BULLET Setting up NVIDIA drivers...$NC"
-    pacman -S --noconfirm nvidia nvidia-utils nvidia-settings
+    if [ "$kern" == "linux-lts" ]; then
+        nvdriver="nvidia-lts"
+    else
+        nvdriver="nvidia"
+    fi
+    pacman -S --noconfirm $nvdriver nvidia-utils nvidia-settings
     sed -i 's/^MODULES=()/MODULES=(nvidia)/' /etc/mkinitcpio.conf
     mkinitcpio -P
     echo -e "$GREEN  $CHECKMARK NVIDIA drivers installed!$NC"
@@ -174,7 +179,12 @@ elif [ "$graphics_card" == "3" ]; then
     echo -e "$GREEN  $CHECKMARK Intel drivers installed!$NC"
 elif [ "$graphics_card" == "4" ]; then
     echo -e "$BLUE $BULLET Setting up NVIDIA and Intel drivers...$NC"
-    pacman -S --noconfirm nvidia nvidia-utils nvidia-settings
+    if [ "$kern" == "linux-lts" ]; then
+        nvdriver="nvidia-lts"
+    else
+        nvdriver="nvidia"
+    fi
+    pacman -S --noconfirm $nvdriver nvidia-utils nvidia-settings
     pacman -S --noconfirm xf86-video-intel
     sed -i 's/^MODULES=()/MODULES=(nvidia i915)/' /etc/mkinitcpio.conf
     mkinitcpio -P
