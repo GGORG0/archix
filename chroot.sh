@@ -45,7 +45,7 @@ else
 fi
 
 echo -e "$BLUE $BULLET Enabling Pacman parallel downloads...$NC"
-sed -i '37s/.//' /etc/pacman.conf
+sed -i '37s/^#ParallelDownloads/ParallelDownloads/' /etc/pacman.conf
 
 echo -e "$BLUE $BULLET Please set your timezone:$NC"
 timezone=$(tzselect) || error "Timezone not set!"
