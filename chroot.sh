@@ -61,7 +61,8 @@ read -p " Please enter your choice: " locale_choice
 
 if [ "$locale_choice" == "1" ]; then
     echo -e "$BLUE $BULLET Setting locale to en_US...$NC"
-    locale-gen en_US.UTF-8
+    sed -i '177s/.//' /etc/locale.gen
+    locale-gen
     echo "LANG=en_US.UTF-8" > /etc/locale.conf
     echo -e "$GREEN  $CHECKMARK Locale set to en_US.UTF-8!$NC"
 elif [ "$locale_choice" == "2" ]; then
