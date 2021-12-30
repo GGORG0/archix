@@ -90,6 +90,9 @@ fi
 echo -e "$BLUE $BULLET Refreshing repositories...$NC"
 pacman -Syy || error "An error occurred while refreshing repositories."
 
+echo -e "$BLUE $BULLET Enabling Pacman parallel downloads...$NC"
+sed -i '37s/.//' /etc/pacman.conf
+
 echo -e "$BLUE $BULLET Enabling NTP clock synchronization...$NC"
 timedatectl set-ntp true || error "An error occurred while enabling NTP clock synchronization."
 sleep 2

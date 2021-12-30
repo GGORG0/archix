@@ -44,6 +44,9 @@ else
     echo -e "$GREEN  $CHECKMARK You are root!$NC"
 fi
 
+echo -e "$BLUE $BULLET Enabling Pacman parallel downloads...$NC"
+sed -i '37s/.//' /etc/pacman.conf
+
 echo -e "$BLUE $BULLET Please set your timezone:$NC"
 timezone=$(tzselect) || error "Timezone not set!"
 ln -sf /usr/share/zoneinfo/$timezone /etc/localtime
