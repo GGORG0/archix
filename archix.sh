@@ -379,9 +379,9 @@ echo -e "$GREEN $CHECKMARK Installation script copied.$NC"
 
 echo -e "$BLUE $BULLET Chrooting into the new system...$NC"
 echo "export EDTOR=$EDTOR" >> /mnt/envs
-echo "device=$device" >> /mnt/envs
-echo "firmware=$firmware" >> /mnt/envs
-echo "kern=$kern" >> /mnt/envs
+echo "export device=$device" >> /mnt/envs
+echo "export firmware=$firmware" >> /mnt/envs
+echo "export kern=$kern" >> /mnt/envs
 echo "export ARCHIX_DISABLE_COLORS=$ARCHIX_DISABLE_COLORS" >> /mnt/envs
 echo "export ARCHIX_RICH_SYMBOLS=$ARCHIX_RICH_SYMBOLS" >> /mnt/envs
 arch-chroot /mnt /install.sh || error "An error occurred while chrooting into the new system."
