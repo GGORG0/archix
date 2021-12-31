@@ -243,6 +243,16 @@ if [ "$partitioned" == "2" ]; then
         echo -e "$GREEN $CHECKMARK Partitioning completed.$NC"
     fi
 else
+    read -p "Please enter the device name (e.g. /dev/sda): " device
+
+    if [ -z "$device" ]; then
+        echo -e "$RED $CROSS Device name is empty.$NC"
+        exit 1
+    fi
+    if [ ! -b "$device" ]; then
+        echo -e "$RED $CROSS Device name is not valid.$NC"
+        exit 1
+    fi
     
     echo -e "$YELLOW $BULLET $WARNING Home partitions are not yet supported.$NC"
     echo -e "$YELLOW  $BULLET If you want to use a home partition, please do it manually or re-run the script choosing to partition automatically.$NC"
