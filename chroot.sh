@@ -239,7 +239,7 @@ reflector -a 6 --sort rate --save /etc/pacman.d/mirrorlist --verbose --country "
 echo -e "$GREEN  $CHECKMARK Mirrors updated!$NC"
 
 echo -e "$BLUE $BULLET Switching user...$NC"
-su $username -c /user.sh
+su - $username -c /user.sh
 echo -e "$GREEN $CHECKMARK User script exited!$NC"
 
 echo -e "$BLUE $QUESTION Which desktop environment do you want to install?$NC"
