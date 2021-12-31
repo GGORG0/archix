@@ -105,11 +105,12 @@ echo -e "$NC"
 read -p "Please enter your choice: " partitioned
 
 if [ "$partitioned" == "2" ]; then
-    echo -e "$BLUE $QUESTION Do you want to partition your hard drive malually?"
-    echo -e " $BULLET 1. Yes"
-    echo -e " $BULLET 2. No (BIOS not yet supported)"
-    echo -e "$NC"
-    read -p "Please enter your choice: " manpartition
+    # echo -e "$BLUE $QUESTION Do you want to partition your hard drive malually?"
+    # echo -e " $BULLET 1. Yes"
+    # echo -e " $BULLET 2. No (BIOS not yet supported, UEFI currently broken)"
+    # echo -e "$NC"
+    # read -p "Please enter your choice: " manpartition
+    manpartition="1"
     
     if [ "$manpartition" == "1" ]; then
         echo -e "$YELLOW $BULLET $WARNING Only EXT4 partitions are supported.$NC"
@@ -223,14 +224,15 @@ if [ "$partitioned" == "2" ]; then
         echo -e "$BLUE $BULLET This may take a while...$NC"
 
         if [ "$firmware" == "2" ]; then
-            sgdisk -o \
-                -n 1:0:+500M -t 2:EF00 \ # /boot
-                -n 2:0:+2G -t 3:8200 \ # swap
-                -n 3:0:0 -t 3:8300 \ # /
-                $device || error "An error occurred while partitioning your hard drive."
-            efipart = "$device1"
-            swapdev = "$device2"
-            rootdev = "$device3"
+            # TODO: fix this
+            # sgdisk -o \
+            #     -n 1:0:+500M -t 2:EF00 \ # /boot
+            #     -n 2:0:+2G -t 3:8200 \ # swap
+            #     -n 3:0:0 -t 3:8300 \ # /
+            #     $device || error "An error occurred while partitioning your hard drive."
+            # efipart = "$device1"
+            # swapdev = "$device2"
+            # rootdev = "$device3"
         # else
 
             # sfdisk -o \
