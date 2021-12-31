@@ -107,7 +107,7 @@ read -p "Please enter your choice: " partitioned
 if [ "$partitioned" == "2" ]; then
     # echo -e "$BLUE $QUESTION Do you want to partition your hard drive manually?"
     # echo -e " $BULLET 1. Yes"
-    # echo -e " $BULLET 2. No (BIOS not yet supported, UEFI currently broken)"
+    # echo -e " $BULLET 2. No (BIOS not yet supported, UEFI currently broken, home partitions are not supported)"
     # echo -e "$NC"
     # read -p "Please enter your choice: " manpartition
     manpartition="1"
@@ -140,25 +140,21 @@ if [ "$partitioned" == "2" ]; then
         echo -e "$BLUE $BULLET Here is the list of partitions you can use:$NC"
         lsblk -p -o NAME,SIZE $device
 
-        read -p "Please enter the root partition (e.g. /dev/sda1): " rootdev
+        read -p "Please enter the root partition (e.g. /dev/sda3): " rootdev
         if [ -z "$rootdev" ]; then
-            echo -e "$RED $CROSS Device name is empty.$NC"
-            exit 1
+            error "$RED $CROSS Device name is empty.$NC"
         fi
         if [ ! -b "$rootdev" ]; then
-            echo -e "$RED $CROSS Device name is not valid.$NC"
-            exit 1
+            error "$RED $CROSS Device name is not valid.$NC"
         fi
 
         if [ "$firmware" == "2" ]; then
             read -p "Please enter the EFI System Partition (e.g. /dev/sda1): " efipart
             if [ -z "$efipart" ]; then
-                echo -e "$RED $CROSS EFI System Partition is empty.$NC"
-                exit 1
+                error "$RED $CROSS EFI System Partition is empty.$NC"
             fi
             if [ ! -b "$efipart" ]; then
-                echo -e "$RED $CROSS EFI System Partition is not valid.$NC"
-                exit 1
+                error "$RED $CROSS EFI System Partition is not valid.$NC"
             fi
         else
             efipart=""
@@ -169,8 +165,16 @@ if [ "$partitioned" == "2" ]; then
             echo -e "$YELLOW $WARNING Swap partition is empty. Not using one. $NC"
         else
             if [ ! -b "$swapdev" ]; then
-                echo -e "$RED $CROSS Swap partition is not valid.$NC"
-                exit 1
+                error "$RED $CROSS Swap partition is not valid.$NC"
+            fi
+        fi
+
+        read -p "Please enter the home partition (e.g. /dev/sda4): " homedev
+        if [ -z "$homedev" ]; then
+            echo -e "$YELLOW $WARNING Home partition is empty. Not using one. $NC"
+        else
+            if [ ! -b "$homedev" ]; then
+                error "$RED $CROSS Home partition is not valid.$NC"
             fi
         fi
     else
@@ -261,8 +265,6 @@ else
         exit 1
     fi
     
-    echo -e "$YELLOW $BULLET $WARNING Home partitions are not yet supported.$NC"
-    echo -e "$YELLOW  $BULLET If you want to use a home partition, please do it manually or re-run the script choosing to partition automatically.$NC"
     echo -e "$YELLOW $BULLET $WARNING Only EXT4 partitions are supported.$NC"
 
     echo -e "$BLUE $BULLET Here is the list of partitions you can use:$NC"
@@ -300,6 +302,15 @@ else
             exit 1
         fi
     fi
+
+    read -p "Please enter the home partition (e.g. /dev/sda4): " homedev
+    if [ -z "$homedev" ]; then
+        echo -e "$YELLOW $WARNING Home partition is empty. Not using one. $NC"
+    else
+        if [ ! -b "$homedev" ]; then
+            error "$RED $CROSS Home partition is not valid.$NC"
+        fi
+    fi
 fi
 
 echo -e "$BLUE $BULLET You entered the following information:"
@@ -309,6 +320,7 @@ echo -e " $BULLET 3. Swap partition: $swapdev"
 if [ "$firmware" == "2" ]; then
     echo -e " $BULLET 4. EFI System Partition: $efipart"
 fi
+echo -e " $BULLET 5. Home partition: $swapdev"
 echo -e "$NC"
 
 echo -e "$BLUE $QUESTION Is this correct?$NC"
@@ -332,8 +344,15 @@ fi
 echo -e "$BLUE $BULLET Formatting Root partition as EXT4...$NC"
 mkfs.ext4 $rootdev || error "An error occurred while creating the Root partition filesystem."
 
-echo -e "$BLUE $BULLET Formatting Swap partition as SWAP...$NC"
-mkswap $swapdev || error "An error occurred while creating the Swap partition filesystem."
+if [ -n "$swapdev" ]; then
+    echo -e "$BLUE $BULLET Formatting Swap partition as SWAP...$NC"
+    mkswap $swapdev || error "An error occurred while creating the Swap partition filesystem."
+fi
+
+if [ -n "$homedev" ]; then
+    echo -e "$BLUE $BULLET Formatting Home partition as EXT4...$NC"
+    mkfs.ext4 $homedev || error "An error occurred while creating the Home partition filesystem."
+fi
 
 echo -e "$GREEN $CHECKMARK Filesystems created.$NC"
 
@@ -353,10 +372,19 @@ if [ "$firmware" == "2" ]; then
     echo -e "$GREEN    $CHECKMARK EFI System Partition mounted.$NC"
 fi
 
-echo -e "$BLUE  $BULLET Mounting Swap partition...$NC"
-swapon $swapdev || error "An error occurred while mounting the Swap partition."
-echo -e "$GREEN   $CHECKMARK Swap partition mounted.$NC"
+if [ -n "$swapdev" ]; then
+    echo -e "$BLUE  $BULLET Mounting Swap partition...$NC"
+    swapon $swapdev || error "An error occurred while mounting the Swap partition."
+    echo -e "$GREEN   $CHECKMARK Swap partition mounted.$NC"
+fi
 
+if [ -n "$homedev" ]; then
+    echo -e "$BLUE  $BULLET Creating /home mountpoint...$NC"
+    mkdir -p /mnt/home
+    echo -e "$BLUE  $BULLET Mounting Home partition...$NC"
+    mount $homedev /mnt/home || error "An error occurred while mounting the Home partition."
+    echo -e "$GREEN   $CHECKMARK Home partition mounted.$NC"
+fi
 
 echo -e "$BLUE $QUESTION Which kernel do you want to install?$NC"
 echo -e " $BULLET 1. Linux"
