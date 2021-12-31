@@ -105,7 +105,7 @@ echo -e "$NC"
 read -p "Please enter your choice: " partitioned
 
 if [ "$partitioned" == "2" ]; then
-    # echo -e "$BLUE $QUESTION Do you want to partition your hard drive malually?"
+    # echo -e "$BLUE $QUESTION Do you want to partition your hard drive manually?"
     # echo -e " $BULLET 1. Yes"
     # echo -e " $BULLET 2. No (BIOS not yet supported, UEFI currently broken)"
     # echo -e "$NC"
