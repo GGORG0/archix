@@ -174,7 +174,9 @@ if [ "$partitioned" == "2" ]; then
         fi
     else
         # TODO: Auto partitioning for BIOS
-        error "Automated partitioning for BIOS is not yet supported."
+        if [ "$firmware" == "1" ]; then
+            error "Automated partitioning for BIOS is not yet supported."
+        fi
 
 
         echo -e "$BLUE $BULLET Here is the list of devices you can use:$NC"
