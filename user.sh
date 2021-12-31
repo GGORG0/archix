@@ -1,4 +1,5 @@
 #!/bin/bash
+# TODO: fix yay installation
 
 if [ "ARCHIX_DISABLE_COLORS" == "1" ]; then
     RED=""

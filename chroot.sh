@@ -238,9 +238,10 @@ read -p " Please enter your country code (eg. US): " country
 reflector -a 6 --sort rate --save /etc/pacman.d/mirrorlist --verbose --country "$country" -p https
 echo -e "$GREEN  $CHECKMARK Mirrors updated!$NC"
 
-echo -e "$BLUE $BULLET Switching user...$NC"
-su - $username -c /user.sh
-echo -e "$GREEN $CHECKMARK User script exited!$NC"
+# TODO: fix yay installation
+# echo -e "$BLUE $BULLET Switching user...$NC"
+# su - $username -c /user.sh
+# echo -e "$GREEN $CHECKMARK User script exited!$NC"
 
 echo -e "$BLUE $QUESTION Which desktop environment do you want to install?$NC"
 echo -e " $BULLET 1) KDE Plasma"
