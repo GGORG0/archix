@@ -320,7 +320,7 @@ echo -e " $BULLET 3. Swap partition: $swapdev"
 if [ "$firmware" == "2" ]; then
     echo -e " $BULLET 4. EFI System Partition: $efipart"
 fi
-echo -e " $BULLET 5. Home partition: $swapdev"
+echo -e " $BULLET 5. Home partition: $homedev"
 echo -e "$NC"
 
 echo -e "$BLUE $QUESTION Is this correct?$NC"
