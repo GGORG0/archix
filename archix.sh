@@ -243,6 +243,9 @@ if [ "$partitioned" == "2" ]; then
         echo -e "$GREEN $CHECKMARK Partitioning completed.$NC"
     fi
 else
+    echo -e "$BLUE $BULLET Here is the list of devices you can use:$NC"
+    lsblk -d -p -o NAME,SIZE
+
     read -p "Please enter the device name (e.g. /dev/sda): " device
 
     if [ -z "$device" ]; then
@@ -259,7 +262,7 @@ else
     echo -e "$YELLOW $BULLET $WARNING Only EXT4 partitions are supported.$NC"
 
     echo -e "$BLUE $BULLET Here is the list of partitions you can use:$NC"
-    lsblk -p -o NAME,SIZE,TYPE
+    lsblk -p -o NAME,SIZE $device
 
     read -p "Please enter the root partition (e.g. /dev/sda2): " rootdev
     if [ -z "$rootdev" ]; then
