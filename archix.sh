@@ -223,7 +223,7 @@ if [ "$partitioned" == "2" ]; then
         echo -e "$BLUE $BULLET Partitioning your hard drive...$NC"
         echo -e "$BLUE $BULLET This may take a while...$NC"
 
-        if [ "$firmware" == "2" ]; then
+        # if [ "$firmware" == "2" ]; then
             # TODO: fix this
             # sgdisk -o \
             #     -n 1:0:+500M -t 2:EF00 \ # /boot
@@ -242,7 +242,7 @@ if [ "$partitioned" == "2" ]; then
             # efipart = ""
             # swapdev = "$device1"
             # rootdev = "$device2"
-        fi
+        # fi
 
         echo -e "$GREEN $CHECKMARK Partitioning completed.$NC"
     fi
