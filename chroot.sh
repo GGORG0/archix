@@ -109,7 +109,7 @@ systemctl enable avahi-daemon
 systemctl enable reflector.timer
 
 echo -e "$BLUE  $BULLET Installing filesystem packages...$NC"
-pacman -S --noconfirm --needed dosfstools exfat-utils fuse exfat-utils mtools ntfs-3g
+pacman -S --noconfirm --needed dosfstools exfat-utils fuse mtools ntfs-3g
 systemctl enable fstrim.timer
 
 echo -e "$BLUE  $BULLET Installing other packages...$NC"
