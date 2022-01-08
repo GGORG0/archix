@@ -8,3 +8,19 @@ To run it, simply boot an Arch Linux installer ISO and run the following command
 curl -LO "https://git.io/archix"
 bash archix
 ```
+
+## TODO
+
+ - Curses interface
+ - Maybe move to Python
+ - Add more customizability
+ - Fix bugs:
+  - User input not validated
+  - Fix text formatting
+  - Fix Yay installation
+ - Ask the user first, do everything after gathering the info
+ - Add a main menu
+ - Don't quit the entire program when there is an error
+ - Other general improvements
+
+But you all know, that school is more important.
