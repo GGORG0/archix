@@ -15,12 +15,13 @@ bash archix
  - Maybe move to Python
  - Add more customizability
  - Fix bugs:
-  - User input not validated
-  - Fix text formatting
-  - Fix Yay installation
+   - User input not validated
+   - Fix text formatting
+   - Fix Yay installation
  - Ask the user first, do everything after gathering the info
  - Add a main menu
  - Don't quit the entire program when there is an error
  - Other general improvements
+
 
 But you all know, that school is more important.
